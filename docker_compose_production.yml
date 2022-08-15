@@ -23,7 +23,7 @@ services:
       - emqx
       - mongo
 
-    command: "npm run build && npm run start"
+    command: sh -c "npm run build && npm run start"
     #command: sh -c "npm install"
 
   mongo:
