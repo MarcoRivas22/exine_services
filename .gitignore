@@ -1,4 +1,6 @@
-mongodata/
+
+.ENV
 .env
 .log
 app
+mongodata

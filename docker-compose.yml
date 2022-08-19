@@ -1,5 +1,5 @@
 version: "3.8"
-
+#
 volumes:
   vol-emqx-data:
     name: foo-emqx-data
@@ -7,6 +7,7 @@ volumes:
   #    name: foo-emqx-etc
   vol-emqx-log:
     name: foo-emqx-log
+#
 
 services:
   mongo:
@@ -32,14 +33,16 @@ services:
       - 8883:8883
       - 8083:8083
       - 8085:8081
+
     volumes:
       - vol-emqx-data:/opt/emqx/data
-      #  - vol-emqx-etc:/opt/emqx/etc
       - vol-emqx-log:/opt/emqx/log
+
     links:
       - mongo
+
     extra_hosts:
-      - "localhost:192.168.0.102"
+      - "localhost:10.141.76.52"
 
     environment:
       EMQX_NAME: exine
@@ -50,7 +53,7 @@ services:
       # DEFAULT DASH PASS
       EMQX_DASHBOARD__DEFAULT_USER__PASSWORD: "${EMQX_DEFAULT_USER_PASSWORD}"
 
-      # DEFAULT APP SECRETE
+      # DEFAULT APP SECRET
       EMQX_MANAGEMENT__DEFAULT_APPLICATION__SECRET: "${EMQX_DEFAULT_APPLICATION_SECRET}"
 
       EMQX_ALLOW_ANONYMOUS: "false"
@@ -86,6 +89,6 @@ services:
       EMQX_AUTH__MONGO__ACL_QUERY__COLLECTION: "emqxauthrules"
       EMQX_AUTH__MONGO__ACL_QUERY__SELECTOR: "username=%u"
 
-      EMQX_LOADED_PLUGINS: "emqx_recon,emqx_retainer,emqx_management,emqx_dashboard, emqx_auth_mongo"
+      EMQX_LOADED_PLUGINS: "emqx_recon,emqx_retainer,emqx_management,emqx_dashboard,emqx_auth_mongo"
 
       EMQX_LISTENER__TCP__EXTERNAL__MAX_CONNECTIONS: 1000

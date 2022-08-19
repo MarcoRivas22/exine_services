@@ -22,13 +22,12 @@ services:
       - emqx
       - mongo
 
-    command: sh -c "echo 'delaying 30 seconds' && sleep 30 && npm run start"
+    command: sh -c "npm run start"
+    #command: sh -c "npm install"
 
   mongo:
     container_name: mongo
     image: mongo:4.4
-    logging:
-      driver: "none"
     environment:
       TZ: "${TZ}"
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
@@ -41,6 +40,7 @@ services:
   emqx:
     container_name: emqx
     image: emqx/emqx:4.2.3
+    restart: always
 
     ports:
       - 18083:18083
@@ -85,7 +85,7 @@ services:
       EMQX_AUTH__MONGO__PASSWORD: "${MONGO_PASSWORD}"
       EMQX_AUTH__MONGO__AUTH_SOURCE: admin
 
-      EMQX_AUTH__MONGO__DATABASE: "exinedb"
+      EMQX_AUTH__MONGO__DATABASE: "exindb"
       EMQX_AUTH__MONGO__AUTH_QUERY__COLLECTION: "emqxauthrules"
 
       EMQX_AUTH__MONGO__SUPER_QUERY__COLLECTION: "emqxauthrules"
